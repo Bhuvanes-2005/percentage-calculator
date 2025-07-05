@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>12th Grade Percentage Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f8ff;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #3498db;
+      color: white;
+      padding: 10px;
+      border: none;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #ecf0f1;
+      border-radius: 8px;
+    }
+
+    .result p {
+      margin: 8px 0;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>12th Grade Percentage Calculator</h1>
+
+  <div class="container">
+    <form id="marksForm">
+      <label for="subject1">Subject 1 Marks:</label>
+      <input type="number" id="subject1" max="100" min="0" required>
+
+      <label for="subject2">Subject 2 Marks:</label>
+      <input type="number" id="subject2" max="100" min="0" required>
+
+      <label for="subject3">Subject 3 Marks:</label>
+      <input type="number" id="subject3" max="100" min="0" required>
+
+      <label for="subject4">Subject 4 Marks:</label>
+      <input type="number" id="subject4" max="100" min="0" required>
+
+      <label for="subject5">Subject 5 Marks:</label>
+      <input type="number" id="subject5" max="100" min="0" required>
+
+      <button type="button" onclick="calculatePercentage()">Calculate</button>
+    </form>
+
+    <div class="result" id="resultBox" style="display:none;">
+      <p><strong>Total Marks:</strong> <span id="totalMarks"></span>/500</p>
+      <p><strong>Percentage:</strong> <span id="percentage"></span>%</p>
+      <p><strong>Grade:</strong> <span id="grade"></span></p>
+    </div>
+  </div>
+
+  <script>
+    function calculatePercentage() {
+      const marks = [
+        parseFloat(document.getElementById('subject1').value),
+        parseFloat(document.getElementById('subject2').value),
+        parseFloat(document.getElementById('subject3').value),
+        parseFloat(document.getElementById('subject4').value),
+        parseFloat(document.getElementById('subject5').value)
+      ];
+
+      if (marks.some(mark => isNaN(mark) || mark < 0 || mark > 100)) {
+        alert("Please enter valid marks between 0 and 100 for all subjects.");
+        return;
+      }
+
+      const total = marks.reduce((a, b) => a + b, 0);
+      const percentage = (total / 500 * 100).toFixed(2);
+      let grade = "";
+
+      if (percentage >= 90) grade = "A+ (Excellent)";
+      else if (percentage >= 80) grade = "A (Very Good)";
+      else if (percentage >= 70) grade = "B+ (Good)";
+      else if (percentage >= 60) grade = "B (Above Average)";
+      else if (percentage >= 50) grade = "C (Average)";
+      else if (percentage >= 33) grade = "D (Pass)";
+      else grade = "F (Fail)";
+
+      document.getElementById('totalMarks').textContent = total;
+      document.getElementById('percentage').textContent = percentage;
+      document.getElementById('grade').textContent = grade;
+      document.getElementById('resultBox').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
